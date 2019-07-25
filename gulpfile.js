@@ -81,7 +81,7 @@ gulp.task('watch', function() {
     // watch('src/scss/**/*', gulp.series('compile-sass')).on('change', browserSync.reload);
     gulp.watch('src/scss/**/*').on('change', gulp.series('compile-sass', browserSync.reload));
     gulp.watch('src/html/pages/**/*').on('change', gulp.series('compile-html', browserSync.reload));
-    gulp.watch('src/html/{layouts,includes,helpers,data}/**/*').on('change', gulp.series('compile-html', browserSync.reload))
+    gulp.watch('src/html/{layouts,includes,helpers,data}/**/*').on('change', gulp.series(async () => { await panini.refresh() }, 'compile-html', browserSync.reload));
 });
 
 gulp.task('set-production', async function(){ return await production.task});
